@@ -99,7 +99,7 @@ module.exports = function toReadable (number) {
     }
     
     function row3(number) {
-        return row1(number) + " hundred ";
+        return row1(number) + " hundred";
     }
 
     let numStr = String(number);
@@ -107,19 +107,25 @@ module.exports = function toReadable (number) {
     if (numStr === '0') {
         result = `zero`
     } else if (numStr.length === 1) {
-        result = row1(numStr)
+        result = row1(numStr);
     } else if (numStr.length === 2 && numStr[0] === '1') {
-        result = row1(numStr) 
-    } else if (numStr.length === 2 && numStr[0] === '0') {
-        result = row2(numStr) 
+        result = row1(numStr);
+    } else if (numStr.length === 2 && numStr[1] === '0') {
+        result = row2(numStr[0]);
     } else if (numStr.length === 2 && numStr[0] !== '1') {
         result = row2(numStr[0]) + ` ` + row1(numStr[1])
     } else if (numStr.length === 3 && numStr[1] === '0' && numStr[2] === '0') {
-        result = row3(numStr[0])
+        result = row3(numStr[0]) //100
     } else if (numStr.length === 3 && numStr[1] === '0' && numStr[2] !== '0') {
-        result = row3(numStr[0]) + row1(numStr[2])
+        result = row3(numStr[0]) + ` ` + row1(numStr[2]) //109
+    } else if (numStr.length === 3 && numStr[1] !== '1' && numStr[2] === '0') {
+        result = row3(numStr[0]) + ` ` + row2(numStr[1]) //110
+    } else if (numStr.length === 3 && numStr[1] === '1' && numStr[2] === '0') {
+        result = row3(numStr[0]) + ` ` + row1(numStr[1]+numStr[2]) //110
+    } else if (numStr.length === 3 && numStr[1] === '1') {
+        result = row3(numStr[0]) + ` ` + row1(numStr[1]+numStr[2]) //119
     } else if (numStr.length === 3) {
-        result = row3(numStr[0]) + row2(numStr[1]) + ` ` + row1(numStr[2])
+        result = row3(numStr[0]) + ` ` + row2(numStr[1]) + ` ` + row1(numStr[2])
     };
 
     return result;
